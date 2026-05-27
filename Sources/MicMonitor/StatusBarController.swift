@@ -3,7 +3,7 @@ import AppKit
 class StatusBarController {
 
     private let statusItem: NSStatusItem
-    private var currentLevel: VolumeLevel = .quiet
+    private var currentLevel: VolumeLevel?
 
     init() {
         statusItem = NSStatusBar.system.statusItem(
@@ -27,7 +27,7 @@ class StatusBarController {
         statusItem.menu = menu
     }
 
-    func updateVolumeLevel(_ level: VolumeLevel, _: Float) {
+    func updateVolumeLevel(_ level: VolumeLevel) {
         guard currentLevel != level else { return }
         currentLevel = level
         DispatchQueue.main.async { [weak self] in
@@ -37,8 +37,11 @@ class StatusBarController {
     }
 
     func showDisabled() {
-        statusItem.button?.image = IconGenerator.disabledIcon()
-        statusItem.button?.toolTip = "MicMonitor: No microphone access"
+        currentLevel = nil
+        DispatchQueue.main.async { [weak self] in
+            self?.statusItem.button?.image = IconGenerator.disabledIcon()
+            self?.statusItem.button?.toolTip = "MicMonitor: No microphone access"
+        }
     }
 
     private func tooltip(for level: VolumeLevel) -> String {
