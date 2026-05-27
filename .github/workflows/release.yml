@@ -20,5 +20,5 @@ jobs:
       - name: Create Release
         uses: softprops/action-gh-release@v3
         with:
-          files: SoniMate.dmg
+          files: SoniMate-*.dmg
           generate_release_notes: true
