@@ -17,10 +17,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             statusBarController?.showDisabled()
         }
 
-        audioMonitor?.start()
+        if audioMonitor?.isAuthorized == true {
+            audioMonitor?.start()
+        }
     }
 
     func applicationWillTerminate(_ notification: Notification) {
         audioMonitor?.stop()
+        statusBarController?.removeStatusItem()
     }
 }

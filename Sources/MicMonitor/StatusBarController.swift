@@ -36,6 +36,10 @@ class StatusBarController {
         }
     }
 
+    func removeStatusItem() {
+        NSStatusBar.system.removeStatusItem(statusItem)
+    }
+
     func showDisabled() {
         currentLevel = nil
         DispatchQueue.main.async { [weak self] in
