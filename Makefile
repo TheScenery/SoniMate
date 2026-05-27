@@ -14,6 +14,7 @@ bundle: build
 	mkdir -p $(APP_BUNDLE)/Contents/Resources
 	cp $(BUILD_DIR)/release/$(APP_NAME) $(APP_BUNDLE)/Contents/MacOS/
 	cp Info.plist $(APP_BUNDLE)/Contents/Info.plist
+	cp $(APP_NAME).icns $(APP_BUNDLE)/Contents/Resources/
 	touch $(APP_BUNDLE)
 
 run: bundle

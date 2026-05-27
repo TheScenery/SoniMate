@@ -16,6 +16,8 @@
     <string>1</string>
     <key>CFBundleShortVersionString</key>
     <string>1.0.0</string>
+    <key>CFBundleIconFile</key>
+    <string>SoniMate</string>
     <key>CFBundlePackageType</key>
     <string>APPL</string>
 </dict>
