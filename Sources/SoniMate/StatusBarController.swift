@@ -4,6 +4,9 @@ class StatusBarController {
 
     private let statusItem: NSStatusItem
     private var currentLevel: VolumeLevel?
+    private var pendingLevel: VolumeLevel?
+    private var holdTimer: Timer?
+    private let holdDuration: TimeInterval = 2.0
 
     init() {
         statusItem = NSStatusBar.system.statusItem(
@@ -28,11 +31,28 @@ class StatusBarController {
     }
 
     func updateVolumeLevel(_ level: VolumeLevel) {
-        guard currentLevel != level else { return }
-        currentLevel = level
         DispatchQueue.main.async { [weak self] in
-            self?.statusItem.button?.image = IconGenerator.icon(for: level)
-            self?.statusItem.button?.toolTip = self?.tooltip(for: level)
+            guard let self else { return }
+            if level == .loud {
+                self.holdTimer?.invalidate()
+                self.holdTimer = nil
+                self.pendingLevel = nil
+                self.applyLevel(level)
+            } else if self.currentLevel == .loud {
+                self.pendingLevel = level
+                if self.holdTimer == nil {
+                    self.holdTimer = Timer.scheduledTimer(withTimeInterval: self.holdDuration, repeats: false) { [weak self] _ in
+                        guard let self else { return }
+                        if let pending = self.pendingLevel {
+                            self.applyLevel(pending)
+                        }
+                        self.holdTimer = nil
+                        self.pendingLevel = nil
+                    }
+                }
+            } else {
+                self.applyLevel(level)
+            }
         }
     }
 
@@ -45,6 +65,15 @@ class StatusBarController {
         DispatchQueue.main.async { [weak self] in
             self?.statusItem.button?.image = IconGenerator.disabledIcon()
             self?.statusItem.button?.toolTip = "SoniMate: No microphone access"
+        }
+    }
+
+    private func applyLevel(_ level: VolumeLevel) {
+        guard currentLevel != level else { return }
+        currentLevel = level
+        DispatchQueue.main.async { [weak self] in
+            self?.statusItem.button?.image = IconGenerator.icon(for: level)
+            self?.statusItem.button?.toolTip = self?.tooltip(for: level)
         }
     }
 
