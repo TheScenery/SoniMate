@@ -60,15 +60,10 @@ class AudioMonitor {
     }
 
     private func processBuffer(_ buffer: AVAudioPCMBuffer) {
-        guard let channelData = buffer.floatChannelData?[0] else { return }
         let frameLength = Int(buffer.frameLength)
+        guard frameLength > 0 else { return }
 
-        var sum: Float = 0
-        for i in 0..<frameLength {
-            let sample = channelData[i]
-            sum += sample * sample
-        }
-        let rms = sqrt(sum / Float(frameLength))
+        let rms = Self.computeRMS(from: buffer)
         let normalized = Self.normalizeVolume(rms)
 
         let level = VolumeLevel.from(normalizedValue: normalized)
@@ -85,8 +80,9 @@ class AudioMonitor {
     }
 
     static func computeRMS(from buffer: AVAudioPCMBuffer) -> Float {
-        guard let channelData = buffer.floatChannelData?[0] else { return 0 }
         let frameLength = Int(buffer.frameLength)
+        guard frameLength > 0 else { return 0 }
+        guard let channelData = buffer.floatChannelData?[0] else { return 0 }
         var sum: Float = 0
         for i in 0..<frameLength {
             let sample = channelData[i]
