@@ -6,7 +6,7 @@ class StatusBarController {
     private var currentLevel: VolumeLevel?
     private var pendingLevel: VolumeLevel?
     private var holdTimer: Timer?
-    private let holdDuration: TimeInterval = 2.0
+    private let holdDuration: TimeInterval = 3.0
 
     init() {
         statusItem = NSStatusBar.system.statusItem(
