@@ -14,14 +14,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Build release bundle
-        run: make bundle
-
-      - name: Pack .app into zip
-        run: zip -r SoniMate.zip SoniMate.app
+      - name: Build release DMG
+        run: make dmg
 
       - name: Create Release
         uses: softprops/action-gh-release@v2
         with:
-          files: SoniMate.zip
+          files: SoniMate.dmg
           generate_release_notes: true
