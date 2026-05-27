@@ -5,13 +5,13 @@
     <key>LSUIElement</key>
     <true/>
     <key>NSMicrophoneUsageDescription</key>
-    <string>MicMonitor needs microphone access to monitor your speaking volume and help you maintain a polite conversation level.</string>
+    <string>SoniMate needs microphone access to monitor your speaking volume and help you maintain a polite conversation level.</string>
     <key>CFBundleName</key>
-    <string>MicMonitor</string>
+    <string>SoniMate</string>
     <key>CFBundleDisplayName</key>
-    <string>MicMonitor</string>
+    <string>SoniMate</string>
     <key>CFBundleIdentifier</key>
-    <string>com.example.micmonitor</string>
+    <string>com.example.sonimate</string>
     <key>CFBundleVersion</key>
     <string>1</string>
     <key>CFBundleShortVersionString</key>

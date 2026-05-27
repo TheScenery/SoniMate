@@ -1,6 +1,6 @@
 import Testing
 import AVFoundation
-@testable import MicMonitor
+@testable import SoniMate
 
 struct AudioMonitorTests {
 

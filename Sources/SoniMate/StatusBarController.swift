@@ -14,7 +14,7 @@ class StatusBarController {
 
         let menu = NSMenu()
         menu.addItem(NSMenuItem(
-            title: "MicMonitor v1.0",
+            title: "SoniMate v1.0",
             action: nil,
             keyEquivalent: ""
         ))
@@ -44,7 +44,7 @@ class StatusBarController {
         currentLevel = nil
         DispatchQueue.main.async { [weak self] in
             self?.statusItem.button?.image = IconGenerator.disabledIcon()
-            self?.statusItem.button?.toolTip = "MicMonitor: No microphone access"
+            self?.statusItem.button?.toolTip = "SoniMate: No microphone access"
         }
     }
 

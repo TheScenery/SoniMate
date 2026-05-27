@@ -2,21 +2,21 @@
 import PackageDescription
 
 let package = Package(
-    name: "MicMonitor",
+    name: "SoniMate",
     platforms: [.macOS(.v13)],
     targets: [
         .executableTarget(
-            name: "MicMonitor",
+            name: "SoniMate",
             dependencies: [],
-            path: "Sources/MicMonitor",
+            path: "Sources/SoniMate",
             linkerSettings: [
                 .unsafeFlags(["-Xlinker", "-sectcreate", "-Xlinker", "__TEXT", "-Xlinker", "__info_plist", "-Xlinker", "Info.plist"])
             ]
         ),
         .testTarget(
-            name: "MicMonitorTests",
-            dependencies: ["MicMonitor"],
-            path: "Tests/MicMonitorTests"
+            name: "SoniMateTests",
+            dependencies: ["SoniMate"],
+            path: "Tests/SoniMateTests"
         )
     ]
 )

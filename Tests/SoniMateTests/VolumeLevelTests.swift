@@ -1,5 +1,5 @@
 import Testing
-@testable import MicMonitor
+@testable import SoniMate
 
 struct VolumeLevelTests {
 
