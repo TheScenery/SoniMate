@@ -1,4 +1,5 @@
 import AppKit
+import AVFoundation
 
 class AppDelegate: NSObject, NSApplicationDelegate {
 
@@ -13,13 +14,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             self?.statusBarController?.updateVolumeLevel(level)
         }
 
-        if audioMonitor?.isAuthorized == false {
+        let status = AVCaptureDevice.authorizationStatus(for: .audio)
+        if status == .denied || status == .restricted {
             statusBarController?.showDisabled()
         }
 
-        if audioMonitor?.isAuthorized == true {
-            audioMonitor?.start()
-        }
+        audioMonitor?.start()
     }
 
     func applicationWillTerminate(_ notification: Notification) {
