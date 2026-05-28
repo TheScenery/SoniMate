@@ -20,6 +20,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
 
         audioMonitor?.start()
+
+        if status == .notDetermined {
+            NSApp.activate(ignoringOtherApps: true)
+        }
     }
 
     func applicationWillTerminate(_ notification: Notification) {

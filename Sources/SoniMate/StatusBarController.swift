@@ -63,9 +63,29 @@ class StatusBarController {
     func showDisabled() {
         currentLevel = nil
         DispatchQueue.main.async { [weak self] in
-            self?.statusItem.button?.image = IconGenerator.disabledIcon()
-            self?.statusItem.button?.toolTip = "SoniMate: No microphone access"
+            guard let self else { return }
+            self.statusItem.button?.image = IconGenerator.disabledIcon()
+            self.statusItem.button?.toolTip = "SoniMate: No microphone access"
+
+            if let menu = self.statusItem.menu {
+                let items = menu.items
+                let hasSettings = items.contains { $0.action == #selector(self.openPrivacySettings) }
+                if !hasSettings {
+                    let settingsItem = NSMenuItem(
+                        title: "Grant Microphone Access...",
+                        action: #selector(self.openPrivacySettings),
+                        keyEquivalent: ""
+                    )
+                    settingsItem.target = self
+                    menu.insertItem(settingsItem, at: 1)
+                    menu.insertItem(NSMenuItem.separator(), at: 2)
+                }
+            }
         }
+    }
+
+    @objc private func openPrivacySettings() {
+        NSWorkspace.shared.open(URL(string: "x-apple.systempreferences:com.apple.preference.security?Privacy_Microphone")!)
     }
 
     private func applyLevel(_ level: VolumeLevel) {
