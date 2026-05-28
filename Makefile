@@ -1,5 +1,5 @@
 APP_NAME = SoniMate
-APP_VERSION = 1.1.0
+APP_VERSION = 1.2.0
 BUILD_DIR = .build
 APP_BUNDLE = $(APP_NAME).app
 

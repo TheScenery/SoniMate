@@ -17,7 +17,7 @@ class StatusBarController {
 
         let menu = NSMenu()
         menu.addItem(NSMenuItem(
-            title: "SoniMate v1.1.0",
+            title: "SoniMate v1.2.0",
             action: nil,
             keyEquivalent: ""
         ))
