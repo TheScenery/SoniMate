@@ -7,6 +7,8 @@ class AudioMonitor {
 
     private let engine = AVAudioEngine()
     private var isRunning = false
+    private var smoothedVolume: Float = 0
+    private let smoothingFactor: Float = 0.3
 
     var isAuthorized: Bool {
         AVCaptureDevice.authorizationStatus(for: .audio) == .authorized
@@ -66,8 +68,10 @@ class AudioMonitor {
         let rms = Self.computeRMS(from: buffer)
         let normalized = Self.normalizeVolume(rms)
 
-        let level = VolumeLevel.from(normalizedValue: normalized)
-        onVolumeChange?(level, normalized)
+        smoothedVolume = smoothedVolume * (1 - smoothingFactor) + normalized * smoothingFactor
+
+        let level = VolumeLevel.from(normalizedValue: smoothedVolume)
+        onVolumeChange?(level, smoothedVolume)
     }
 
     static func normalizeVolume(_ rms: Float) -> Float {
