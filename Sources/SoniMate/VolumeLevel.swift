@@ -6,7 +6,7 @@ enum VolumeLevel: Int, CaseIterable {
     case loud = 2
 
     static let quietThreshold: Float = 0.3
-    static let moderateThreshold: Float = 0.6
+    static let moderateThreshold: Float = 0.7
 
     static func from(normalizedValue: Float) -> VolumeLevel {
         switch normalizedValue {
